@@ -7,6 +7,26 @@ import multiprocessing
 import common
 import exceptions
 
+class Communicator(object):
+
+    def __new__(cls):
+        if not hasattr(cls, "instance"):
+            cls.instance = super(Communicator, cls).__new__(cls)
+            cls.instance._init_queue()
+
+        return cls.instance
+
+    def _init_queue(self):
+        self.queue = OriQueue()
+
+    def send_data(self, data):
+        print "send_" , self.queue
+        self.queue.put(data)
+
+    def get_data(self):
+        print "get->",self.queue
+        return self.queue.get()
+
 
 class OriQueue(object):
 

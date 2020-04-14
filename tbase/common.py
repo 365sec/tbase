@@ -29,7 +29,11 @@ def random_str(length=32):
     Returns:
         str, 生成的字符串
     """
-    return ''.join(random.choices(string.ascii_uppercase + string.digits, k=length))
+    if hasattr(random, "choices"):
+        return ''.join(random.choices(string.ascii_uppercase + string.digits, k=length))
+    else:
+        return "".join(random.sample(string.ascii_uppercase + string.digits,length))
+
 
 
 def get_timestamp():
